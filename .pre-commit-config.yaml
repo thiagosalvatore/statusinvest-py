@@ -1,0 +1,16 @@
+repos:
+-   repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+    - id: black
+      language_version: python3.8
+      args: ['-S']
+      types: [python]
+      exclude: migrations/|test_|base.py|development.py|local.py|production.py|staging.py|tests.py
+-   repo: local
+    hooks:
+    - id: pylint
+      name: pylint
+      entry: pylint
+      language: system
+      types: [python]
