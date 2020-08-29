@@ -1,0 +1,2 @@
+class InvalidEarningTypeException(Exception):
+    pass

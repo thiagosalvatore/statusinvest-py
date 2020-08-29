@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 from statusinvest.domain.split_grouping import SplitGrouping
 from statusinvest.enums import StockTypeEnum
+from statusinvest.extractors.earnings_extractor import EarningsExtractor
 from statusinvest.extractors.events_extractor import EventsExtractor
 
 
@@ -32,11 +33,11 @@ class Client:
         """
         return EventsExtractor(self.bs_node).extract_events()
 
-    def get_dividends(self):
+    def get_earnings(self):
         """
         :return: List of Dividends objects containing all dividends for the given ticker
         """
-        raise NotImplementedError
+        return EarningsExtractor().get_earnings(self.ticker)
 
     def get_bonuses(self):
         """

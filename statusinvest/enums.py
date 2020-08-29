@@ -18,3 +18,13 @@ class EventType(Enum):
 
     SPLIT = 'desdobramento'
     GROUPING = 'grupamento'
+
+
+class EarningType(Enum):
+    """
+    Types of earning on statusinvest
+    """
+
+    DIVIDENDO = "dividendo"
+    JUROS_CAPITAL_PROPRIO = "jcp"
+    RENDIMENTO = "rendimento"
