@@ -37,29 +37,41 @@ class EventsExtractor:
 
     def __find_splits_grouping_rows(self) -> List:
         splits = self.parser.find_all(
-            'span', text=re.compile('Desdobramento$|Grupamento$')
+            "span", text=re.compile("Desdobramento$|Grupamento$", re.IGNORECASE)
         )
         return [split.parent.parent.parent for split in splits]
 
     @classmethod
     def __get_event_type_from_row(cls, row) -> EventType:
         return row.find(
-            'span', text=re.compile('Desdobramento$|Grupamento$')
+            "span", text=re.compile("Desdobramento$|Grupamento$", re.IGNORECASE)
         ).text.lower()
 
     @classmethod
     def __get_factor_from_row(cls, row) -> Tuple[float, float]:
-        factor = row.find('small', text='Fator').findNext('strong').text
-        factor_array = factor.replace(',', '.').split('para')
+        factor = (
+            row.find("small", text=re.compile("fator", re.IGNORECASE))
+            .findNext("strong")
+            .text
+        )
+        factor_array = factor.replace(",", ".").split("para")
         start_with, end_with = float(factor_array[0]), float(factor_array[1])
         return start_with, end_with
 
     @classmethod
     def __get_start_date_from_row(cls, row) -> datetime.date:
-        start_date = row.find('small', text='Data COM').findNext('strong').text
-        return datetime.strptime(start_date, '%d/%m/%Y').date()
+        start_date = (
+            row.find("small", text=re.compile("data com", re.IGNORECASE))
+            .findNext("strong")
+            .text
+        )
+        return datetime.strptime(start_date, "%d/%m/%Y").date()
 
     @classmethod
     def __get_announcement_date_from_row(cls, row) -> datetime.date:
-        start_date = row.find('small', text='Data do anúncio').findNext('strong').text
-        return datetime.strptime(start_date, '%d/%m/%Y').date()
+        start_date = (
+            row.find("small", text=re.compile("data do anúncio", re.IGNORECASE))
+            .findNext("strong")
+            .text
+        )
+        return datetime.strptime(start_date, "%d/%m/%Y").date()

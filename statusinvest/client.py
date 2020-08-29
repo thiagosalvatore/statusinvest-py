@@ -7,6 +7,7 @@ from statusinvest.domain.split_grouping import SplitGrouping
 from statusinvest.enums import StockTypeEnum
 from statusinvest.extractors.earnings_extractor import EarningsExtractor
 from statusinvest.extractors.events_extractor import EventsExtractor
+from statusinvest.extractors.subscriptions_extractor import SubscriptionsExtractor
 
 
 class Client:
@@ -49,4 +50,4 @@ class Client:
         """
         :return: List of subscriptions every registered for the given ticker
         """
-        raise NotImplementedError
+        return SubscriptionsExtractor(self.bs_node).extract_subscriptions()
