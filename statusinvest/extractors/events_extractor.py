@@ -37,7 +37,7 @@ class EventsExtractor:
 
     def __find_splits_grouping_rows(self) -> List:
         splits = self.parser.find_all(
-            "span", text=re.compile("Desdobramento$|Grupamento$", re.IGNORECASE)
+            "span", text=re.compile("^Desdobramento$|^Grupamento$", re.IGNORECASE)
         )
         return [split.parent.parent.parent for split in splits]
 
